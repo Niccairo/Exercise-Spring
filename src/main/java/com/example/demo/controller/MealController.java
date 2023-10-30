@@ -21,7 +21,7 @@ public class MealController {
     }
 
     @DeleteMapping("delete-meal/{id}")
-    public ResponseEntity deleteMeal(Long id){
+    public ResponseEntity deleteMeal(@PathVariable Long id){
         boolean mealDeleted = mealService.deleteMeal(id);
         if (mealDeleted){
             return ResponseEntity.ok("Meal deleted!");
@@ -30,7 +30,7 @@ public class MealController {
     }
 
     @GetMapping("/get-meal/{id}")
-    public ResponseEntity getMeal(Long id){
+    public ResponseEntity getMeal(@PathVariable Long id){
         Optional<Meal> mealOpt = mealService.getMeal(id);
         if (mealOpt.isPresent()){
             return ResponseEntity.ok(mealOpt.get().toString()) ;
@@ -39,7 +39,7 @@ public class MealController {
     }
 
     @PutMapping("/update-meal/{id}")
-    public ResponseEntity<Optional<Meal>> updateMeal(Long id,Meal meal){
+    public ResponseEntity<Optional<Meal>> updateMeal(@PathVariable Long id,@RequestBody Meal meal){
         Optional<Meal> mealOpt = mealService.updateMeal(meal,id);
         if(mealOpt.isPresent()){
             return ResponseEntity.ok(mealOpt);

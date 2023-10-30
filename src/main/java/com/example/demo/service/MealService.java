@@ -36,12 +36,13 @@ public class MealService {
     public Optional<Meal> updateMeal(Meal meal, Long id){
         Optional<Meal> mealOpt = mealRepository.findById(id);
         if(mealOpt.isPresent()){
-            mealOpt.get().setName(meal.getName());
-            mealOpt.get().setDescription(meal.getDescription());
-            mealOpt.get().setPrice(meal.getPrice());
-            mealOpt.get().setIngredients(meal.getIngredients());
-            mealRepository.save(meal);
-            return Optional.of(meal);
+            Meal existingMeal = mealOpt.get();
+            existingMeal.setName(meal.getName());
+            existingMeal.setDescription(meal.getDescription());
+            existingMeal.setPrice(meal.getPrice());
+            existingMeal.setIngredients(meal.getIngredients());
+            mealRepository.save(existingMeal);
+            return Optional.of(existingMeal);
         }
         return Optional.empty();
     }

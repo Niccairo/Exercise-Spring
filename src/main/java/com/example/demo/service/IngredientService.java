@@ -30,13 +30,14 @@ public class IngredientService {
     public Optional<Ingredient> updateIngredient(Ingredient ingredient, Long id){
         Optional<Ingredient> ingredientOpt = ingredientRepository.findById(id);
         if(ingredientOpt.isPresent()){
-            ingredientOpt.get().setName(ingredient.getName());
-            ingredientOpt.get().setGlutenFree(ingredient.isGlutenFree());
-            ingredientOpt.get().setVegan(ingredient.isVegan());
-            ingredientOpt.get().setVegetarian(ingredient.isVegetarian());
-            ingredientOpt.get().setLactoseFree(ingredient.isLactoseFree());
-            ingredientRepository.save(ingredient); //controlla se funziona
-            return Optional.of(ingredient);
+            Ingredient existingIngredient = ingredientOpt.get();
+            existingIngredient.setName(ingredient.getName());
+            existingIngredient.setGlutenFree(ingredient.isGlutenFree());
+            existingIngredient.setVegan(ingredient.isVegan());
+            existingIngredient.setVegetarian(ingredient.isVegetarian());
+            existingIngredient.setLactoseFree(ingredient.isLactoseFree());
+            ingredientRepository.save(existingIngredient); //controlla se funziona
+            return Optional.of(existingIngredient);
         }else {
             return Optional.empty();
         }
